@@ -1,0 +1,19 @@
+aws_access_key_id = ""
+aws_secret_access_key = ""
+
+
+# Azure client id used to create resources
+azure_client_id = ""
+# Client secret used to authenticate with Azure apis
+azure_client_secret = ""
+# Azure subscription id under which resources will be provisioned
+azure_subscription_id = ""
+# Azure tenant id used to create resources
+azure_tenant_id = ""
+
+
+
+prefix = "mak3r"
+ssh_key_file_name = "~/.ssh/id_rsa"
+rancher_subdomain = "demo"
+rancher_access_token = "token-jbx4s:tqxfzmfdflrw82dm2xtjjn9bf9st8gpwxrjbljfbgg85jj97kjf84t"

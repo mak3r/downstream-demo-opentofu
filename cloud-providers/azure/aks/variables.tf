@@ -26,6 +26,16 @@ variable "azure_location" {
   default     = "eastus"
 }
 
+variable "resource_group" {
+  type = string
+  description = "The resource group for this cluster"
+}
+
+variable "cloud_credentials" {
+  type = string
+  description = "Cloud credentials"
+}
+
 variable "prefix" {
   type        = string
   description = "Prefix added to names of all resources"
@@ -35,8 +45,7 @@ variable "prefix" {
 variable "instance_type" {
   type        = string
   description = "Instance type used for all linux virtual machines"
-  #default     = "Standard_DS2_v2"
-  default     = "Standard_DS3_v2"
+  default     = "Standard_DS2_v2"
 }
 
 # Local variables used to reduce repetition

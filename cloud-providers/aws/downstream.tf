@@ -1,6 +1,6 @@
 # Create amazonec2 machine config v2
-resource "rancher2_machine_config_v2" "downstream02-config" {
-  generate_name = "downstream02-config"
+resource "rancher2_machine_config_v2" "schipol-config" {
+  generate_name = "schipol-config"
   amazonec2_config {
     ami =  data.aws_ami.suse.id
     region = var.aws_region
@@ -11,13 +11,14 @@ resource "rancher2_machine_config_v2" "downstream02-config" {
   }
 }
 # Create a new rancher v2 amazon ec2 RKE2 Cluster v2
-resource "rancher2_cluster_v2" "downstream02" {
-  name = "downstream02"
-  kubernetes_version = 	"v1.26.12+k3s1"
+resource "rancher2_cluster_v2" "schipol" {
+  name = "schipol"
+  kubernetes_version = 	"v1.27.7+k3s1"
   enable_network_policy = false
   default_cluster_role_for_project_members = "user"
   labels = {
-    geo = "ny"
+    geo = "nl"
+    city = "amsterdam"
   }
   rke_config {
     machine_pools {
@@ -28,8 +29,8 @@ resource "rancher2_cluster_v2" "downstream02" {
       worker_role = true
       quantity = 1
       machine_config {
-        kind = rancher2_machine_config_v2.downstream02-config.kind
-        name = rancher2_machine_config_v2.downstream02-config.name
+        kind = rancher2_machine_config_v2.schipol-config.kind
+        name = rancher2_machine_config_v2.schipol-config.name
       }
     }
   }

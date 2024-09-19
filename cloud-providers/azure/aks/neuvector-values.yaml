@@ -1,0 +1,323 @@
+admissionwebhook:
+  type: ClusterIP
+autoGenerateCert: true
+bottlerocket:
+  enabled: false
+  runtimePath: /run/dockershim.sock
+containerd:
+  enabled: false
+  path: /var/run/containerd/containerd.sock
+controller:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - neuvector-controller-pod
+            topologyKey: kubernetes.io/hostname
+          weight: 100
+  annotations: {}
+  apisvc:
+    annotations: {}
+    route:
+      enabled: false
+      host: null
+      termination: passthrough
+      tls: null
+    type: null
+  azureFileShare:
+    enabled: false
+    secretName: null
+    shareName: null
+  certificate:
+    keyFile: tls.key
+    pemFile: tls.pem
+    secret: ''
+  configmap:
+    data: null
+    enabled: false
+  disruptionbudget: 0
+  enabled: true
+  env: []
+  federation:
+    managedsvc:
+      annotations: {}
+      clusterIP: null
+      externalTrafficPolicy: null
+      ingress:
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+        enabled: false
+        host: null
+        ingressClassName: ''
+        path: /
+        secretName: null
+        tls: false
+      internalTrafficPolicy: null
+      loadBalancerIP: null
+      nodePort: null
+      route:
+        enabled: false
+        host: null
+        termination: passthrough
+        tls: null
+      type: null
+    mastersvc:
+      annotations: {}
+      clusterIP: null
+      externalTrafficPolicy: null
+      ingress:
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+        enabled: false
+        host: null
+        ingressClassName: ''
+        path: /
+        secretName: null
+        tls: false
+      internalTrafficPolicy: null
+      loadBalancerIP: null
+      nodePort: null
+      route:
+        enabled: false
+        host: null
+        termination: passthrough
+        tls: null
+      type: null
+  image:
+    hash: null
+    repository: rancher/mirrored-neuvector-controller
+    tag: 5.3.2
+  ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    enabled: false
+    host: null
+    ingressClassName: ''
+    path: /
+    secretName: null
+    tls: false
+  internal:
+    certificate:
+      caFile: ca.crt
+      keyFile: tls.key
+      pemFile: tls.crt
+      secret: ''
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  pvc:
+    accessModes:
+      - ReadWriteMany
+    capacity: null
+    enabled: false
+    existingClaim: false
+    storageClass: null
+  ranchersso:
+    enabled: true
+  replicas: 3
+  resources: {}
+  schedulerName: null
+  secret:
+    data:
+      userinitcfg.yaml:
+        users:
+          - Fullname: admin
+            Password: null
+            Role: admin
+    enabled: false
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  tolerations: []
+crdwebhook:
+  enabled: true
+  type: ClusterIP
+crio:
+  enabled: false
+  path: /var/run/crio/crio.sock
+cve:
+  adapter:
+    affinity: {}
+    certificate:
+      keyFile: tls.key
+      pemFile: tls.crt
+      secret: ''
+    enabled: false
+    env: []
+    harbor:
+      protocol: https
+      secretName: null
+    image:
+      hash: null
+      repository: rancher/mirrored-neuvector-registry-adapter
+      tag: 0.1.1-s1
+    ingress:
+      annotations:
+        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+      enabled: false
+      host: null
+      ingressClassName: ''
+      path: /
+      secretName: null
+      tls: false
+    internal:
+      certificate:
+        caFile: ca.crt
+        keyFile: tls.key
+        pemFile: tls.crt
+        secret: ''
+    nodeSelector: {}
+    podAnnotations: {}
+    podLabels: {}
+    priorityClassName: null
+    resources: {}
+    route:
+      enabled: true
+      host: null
+      termination: passthrough
+      tls: null
+    runAsUser: null
+    svc:
+      annotations: {}
+      loadBalancerIP: null
+      type: NodePort
+    tolerations: []
+  scanner:
+    affinity: {}
+    dockerPath: ''
+    enabled: true
+    env: []
+    image:
+      hash: null
+      registry: ''
+      repository: rancher/mirrored-neuvector-scanner
+      tag: latest
+    internal:
+      certificate:
+        caFile: ca.crt
+        keyFile: tls.key
+        pemFile: tls.crt
+        secret: ''
+    nodeSelector: {}
+    podAnnotations: {}
+    podLabels: {}
+    priorityClassName: null
+    replicas: 3
+    resources: {}
+    runAsUser: null
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
+    tolerations: []
+  updater:
+    cacert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    enabled: true
+    image:
+      hash: null
+      registry: ''
+      repository: rancher/mirrored-neuvector-updater
+      tag: latest
+    nodeSelector: {}
+    podAnnotations: {}
+    podLabels: {}
+    priorityClassName: null
+    runAsUser: null
+    schedule: 0 0 * * *
+    secure: false
+defaultValidityPeriod: 365
+docker:
+  path: /var/run/docker.sock
+enforcer:
+  enabled: true
+  env: []
+  image:
+    hash: null
+    repository: rancher/mirrored-neuvector-enforcer
+    tag: 5.3.2
+  internal:
+    certificate:
+      caFile: ca.crt
+      keyFile: tls.key
+      pemFile: tls.crt
+      secret: ''
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  resources: {}
+  tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/control-plane
+  updateStrategy:
+    type: RollingUpdate
+global:
+  cattle:
+    psp:
+      enabled: false
+    url: null
+internal:
+  certmanager:
+    enabled: false
+    secretname: neuvector-internal
+k3s:
+  enabled: false
+  runtimePath: /run/k3s/containerd/containerd.sock
+leastPrivilege: false
+manager:
+  affinity: {}
+  certificate:
+    keyFile: tls.key
+    pemFile: tls.pem
+    secret: ''
+  enabled: true
+  env:
+    envs: []
+    ssl: true
+  image:
+    hash: null
+    repository: rancher/mirrored-neuvector-manager
+    tag: 5.3.2
+  ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    enabled: false
+    host: null
+    ingressClassName: ''
+    path: /
+    secretName: null
+    tls: false
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  resources: {}
+  route:
+    enabled: true
+    host: null
+    termination: passthrough
+    tls: null
+  runAsUser: null
+  svc:
+    annotations: {}
+    loadBalancerIP: null
+    type: NodePort
+  tolerations: []
+oem: null
+openshift: false
+rbac: true
+registry: docker.io
+resources: {}
+runtimePath: null
+serviceAccount: neuvector
+tag: 5.3.2

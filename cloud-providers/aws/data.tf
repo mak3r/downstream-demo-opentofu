@@ -4,7 +4,7 @@ data "aws_ami" "suse" {
 
   filter {
     name   = "name"
-    values = ["openSUSE-Leap-15.4-HVM-x86_64-22c5c717-9ac5-4721-8c69-2ec8bfdaf26b"]
+    values = ["openSUSE-Leap-15.6-HVM-x86_64-prod-xkhy6u6pewna4"]
   }
 
   filter {

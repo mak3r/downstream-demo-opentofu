@@ -4,6 +4,7 @@ resource "rancher2_cloud_credential" "aws_cred" {
   amazonec2_credential_config {
     access_key = var.aws_access_key_id
     secret_key = var.aws_secret_access_key
+    default_region = var.aws_region
   }
 }
 
